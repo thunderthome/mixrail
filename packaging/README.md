@@ -11,7 +11,7 @@
 | `rpm/mixrail.spec` | Fedora package (also for COPR) |
 | `Cargo.toml` → `[package.metadata.deb]` | Debian/Ubuntu package, built with `cargo deb` |
 | `build-packages.sh` | builds the `.deb` and `.rpm` in Ubuntu/Fedora containers and test-installs them in fresh ones (needs Docker) |
-| `../.github/workflows/release.yml` | builds the `.deb` and `.rpm` on GitHub for every version tag and publishes them as a release |
+| `../.github/workflows/release.yml` | builds the `.deb`, `.rpm` and Arch package on GitHub for every version tag and publishes them as a release |
 
 All packages install the same files: `/usr/bin/mixrail`, the user service, the menu entry,
 the tray autostart entry, README and license. The engine starts the first time the mixer

@@ -41,8 +41,33 @@ jobs:
           name: rpm
           path: out/*.rpm
 
+  arch:
+    runs-on: ubuntu-24.04
+    container: archlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dependencies
+        run: |
+          pacman -Syu --noconfirm --needed base-devel cargo clang pipewire pipewire-audio alsa-lib wireplumber
+          useradd -m builder
+      - name: Build
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p /tmp/pkg && cp packaging/aur/PKGBUILD /tmp/pkg/
+          tar --exclude=./.git --transform "s,^\.,mixrail-$version," -czf /tmp/pkg/mixrail-$version.tar.gz .
+          cd /tmp/pkg
+          # Build from this checkout (the release download's checksum isn't known yet).
+          sed -i "s|^source=.*|source=(\"mixrail-$version.tar.gz\")|; s|^sha256sums=.*|sha256sums=('SKIP')|" PKGBUILD
+          chown -R builder /tmp/pkg
+          su builder -c "makepkg -f --noconfirm"
+          mkdir -p "$GITHUB_WORKSPACE/out" && cp /tmp/pkg/mixrail-$version-*.pkg.tar.zst "$GITHUB_WORKSPACE/out/"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arch
+          path: out/*.pkg.tar.zst
+
   release:
-    needs: [deb, rpm]
+    needs: [deb, rpm, arch]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/download-artifact@v4

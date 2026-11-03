@@ -9,7 +9,7 @@ license=('GPL-3.0-or-later')
 depends=('pipewire' 'pipewire-audio' 'wireplumber' 'alsa-lib' 'gcc-libs' 'glibc')
 makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('c0c150ef2459535e4ceb5734c602ae1c75ee7532d701d0aedcc0fb87113d6329')
 
 prepare() {
   cd "$pkgname-$pkgver"

@@ -66,7 +66,7 @@ Mixrail needs **PipeWire**, the standard sound system on current Linux distribut
 
 | Distribution | How |
 |---|---|
-| **Arch, CachyOS, Manjaro, EndeavourOS** | From the AUR, e.g. `yay -S mixrail` or `paru -S mixrail` |
+| **Arch, CachyOS, Manjaro, EndeavourOS** | Download the `.pkg.tar.zst` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest), then `sudo pacman -U ./mixrail-*.pkg.tar.zst`. Or build it: `git clone https://github.com/thunderthome/mixrail && cd mixrail/packaging/aur && makepkg -si`. (Coming to the AUR as `mixrail`.) |
 | **Ubuntu 24.04+, Debian 13+, Linux Mint 22+, Pop!_OS 24.04+** | Download the `.deb` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest), then `sudo apt install ./mixrail_*.deb` (or double-click it) |
 | **Fedora** | Download the `.rpm` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest), then `sudo dnf install ./mixrail-*.rpm` |
 
