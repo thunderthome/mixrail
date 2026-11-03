@@ -38,18 +38,19 @@ window is opened (it enables the user service, so it then starts at every login)
    ```
    Commit those changes here, then copy `PKGBUILD` and `.SRCINFO` into your clone of
    `ssh://aur@aur.archlinux.org/mixrail.git` and push.
-5. **Fedora COPR** (optional, gives Fedora users `dnf install`): the COPR project builds
-   from this repository with the spec at `packaging/rpm/mixrail.spec`; trigger a new build.
+5. **Fedora COPR** (<https://copr.fedorainfracloud.org/coprs/thunderthome/mixrail/>):
+   Builds → New Build → From URLs, paste the release's `.src.rpm` download link
+   (e.g. `https://github.com/thunderthome/mixrail/releases/download/v0.2.0/mixrail-0.2.0-1.fc45.src.rpm`)
+   and build for all chroots.
 
 ## One-time setup
 
 - **AUR**: create an account at <https://aur.archlinux.org>, add your SSH public key in
   "My Account", then `git clone ssh://aur@aur.archlinux.org/mixrail.git` (an empty clone
   creates the package on first push).
-- **COPR**: log in at <https://copr.fedorainfracloud.org> with a Fedora account, create a
-  project "mixrail" for the current Fedora releases, enable "internet access during
-  builds" (Cargo downloads the Rust libraries), and add a package with source type "SCM":
-  this repository's URL and spec file `packaging/rpm/mixrail.spec`.
+- **COPR** (done): project `thunderthome/mixrail`, chroots Fedora 44/45 x86_64 + aarch64,
+  "internet access during builds" on (Cargo downloads the Rust libraries), "follow Fedora
+  branching" on.
 
 ## Security updates
 

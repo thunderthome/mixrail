@@ -68,7 +68,7 @@ Mixrail needs **PipeWire**, the standard sound system on current Linux distribut
 |---|---|
 | **Arch, CachyOS, Manjaro, EndeavourOS** | Download the `.pkg.tar.zst` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest), then `sudo pacman -U ./mixrail-*.pkg.tar.zst`. Or build it: `git clone https://github.com/thunderthome/mixrail && cd mixrail/packaging/aur && makepkg -si`. (Coming to the AUR as `mixrail`.) |
 | **Ubuntu 24.04+, Debian 13+, Linux Mint 22+, Pop!_OS 24.04+** | Download the `.deb` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest), then `sudo apt install ./mixrail_*.deb` (or double-click it) |
-| **Fedora** | Download the `.rpm` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest), then `sudo dnf install ./mixrail-*.rpm` |
+| **Fedora** (44 and newer) | `sudo dnf copr enable thunderthome/mixrail` then `sudo dnf install mixrail`; updates arrive with your normal system updates. (Or download the `.rpm` from the [latest release](https://github.com/thunderthome/mixrail/releases/latest).) |
 
 Then open **Mixrail** from your app menu. The first time, it starts its engine and sets it
 to start at every login; the tray icon appears from the next login on desktops that have
