@@ -70,7 +70,7 @@ jobs:
     needs: [deb, rpm, arch]
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: packages
           merge-multiple: true
