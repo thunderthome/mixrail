@@ -11,7 +11,7 @@ jobs:
   deb:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build dependencies
         run: sudo apt-get update && sudo apt-get install -y clang libclang-dev pkg-config libpipewire-0.3-dev libasound2-dev
       - uses: dtolnay/rust-toolchain@stable
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: fedora:latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build dependencies
         run: dnf install -y rpm-build cargo rust clang-devel pkgconf pipewire-devel alsa-lib-devel systemd-rpm-macros
       - name: Build
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: archlinux:latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build dependencies
         run: |
           pacman -Syu --noconfirm --needed base-devel cargo clang pipewire pipewire-audio alsa-lib wireplumber

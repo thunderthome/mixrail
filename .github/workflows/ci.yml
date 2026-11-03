@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build dependencies
         run: sudo apt-get update && sudo apt-get install -y clang libclang-dev pkg-config libpipewire-0.3-dev libasound2-dev
       - uses: dtolnay/rust-toolchain@stable
