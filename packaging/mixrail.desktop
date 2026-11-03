@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Mixrail
+GenericName=Linux Audio Mixer
+Comment=Audio mixer: route apps, microphones and outputs, with effects and MIDI control
+Exec=mixrail gui
+Keywords=audio;mixer;sound;volume;microphone;routing;pipewire;voicemeeter;midi;
+Icon=mixrail
+Terminal=false
+Categories=AudioVideo;Audio;Mixer;
+StartupWMClass=mixrail

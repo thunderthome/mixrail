@@ -1,0 +1,49 @@
+[package]
+name = "mixrail"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Linux audio mixer for PipeWire: virtual inputs and outputs, per-app routing, effects and MIDI control (an alternative to Voicemeeter)"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/thunderthome/mixrail"
+readme = "README.md"
+keywords = ["audio", "mixer", "pipewire", "linux", "midi"]
+categories = ["multimedia::audio"]
+
+[dependencies]
+anyhow = "1.0.104"
+clap = { version = "4.6.7", features = ["derive"] }
+dirs = "7.0.0"
+eframe = "0.37.0"
+env_logger = "0.11.11"
+ksni = { version = "0.3.7", features = ["blocking"] }
+log = "0.4.35"
+midir = "0.11.1"
+nnnoiseless = { version = "0.5.2", default-features = false }
+pipewire = "0.10.1"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+toml = "1.1.8"
+
+# Debian/Ubuntu package (`cargo deb`, see packaging/README.md).
+[package.metadata.deb]
+maintainer = "thunderthome <47116903+thunderthome@users.noreply.github.com>"
+copyright = "2026 thunderthome"
+license-file = ["LICENSE", "0"]
+section = "sound"
+priority = "optional"
+depends = "$auto, pipewire, pipewire-bin, wireplumber"
+extended-description = """\
+Mixrail is a virtual audio mixer for Linux, an alternative to Voicemeeter on Windows. \
+Give every app its own channel, mix them onto speakers, headphones and virtual \
+microphones, add effects like noise suppression, and control it from the window or any \
+MIDI controller."""
+assets = [
+    ["target/release/mixrail", "usr/bin/", "755"],
+    ["packaging/mixrail.service", "usr/lib/systemd/user/", "644"],
+    ["packaging/mixrail.desktop", "usr/share/applications/", "644"],
+    ["assets/icons/mixrail.svg", "usr/share/icons/hicolor/scalable/apps/", "644"],
+    ["packaging/mixrail-tray.desktop", "etc/xdg/autostart/", "644"],
+    ["README.md", "usr/share/doc/mixrail/", "644"],
+]
+conf-files = ["/etc/xdg/autostart/mixrail-tray.desktop"]

@@ -1,0 +1,199 @@
+# Example setup used for the screenshots in the README (`LAM_DEMO`, see docs/screenshots.sh).
+cue_bus = "a2"
+
+[[strip]]
+id = "mic"
+name = "Microphone"
+kind = "physical"
+device = "alsa_input.usb-Microphone-00.analog-stereo"
+gain_db = 0.0
+buses = ["b1", "b2"]
+
+[strip.fx]
+low_cut = true
+low_cut_hz = 90.0
+
+[strip.fx.noise]
+enabled = true
+amount = 1.0
+
+[strip.fx.gate]
+enabled = true
+threshold_db = -42.0
+
+[strip.fx.deess]
+enabled = true
+threshold_db = -24.0
+
+[strip.fx.comp]
+enabled = true
+threshold_db = -20.0
+ratio = 3.0
+
+[strip.fx.eq]
+enabled = true
+
+[[strip.fx.eq.bands]]
+kind = "low-shelf"
+freq = 120.0
+gain_db = -3.0
+q = 0.7
+
+[[strip.fx.eq.bands]]
+kind = "bell"
+freq = 400.0
+gain_db = -2.5
+q = 1.2
+
+[[strip.fx.eq.bands]]
+kind = "bell"
+freq = 3500.0
+gain_db = 3.5
+q = 1.0
+
+[[strip.fx.eq.bands]]
+kind = "high-shelf"
+freq = 9000.0
+gain_db = 2.0
+q = 0.7
+
+[[strip]]
+id = "music"
+name = "Music"
+kind = "virtual"
+gain_db = -8.0
+buses = ["a1", "a2", "b2"]
+
+[strip.fx.duck]
+enabled = true
+sources = ["chat"]
+amount_db = 12.0
+
+[[strip]]
+id = "browser"
+name = "Browser"
+kind = "virtual"
+gain_db = -4.0
+pan = 0.0
+buses = ["a1", "a2", "b2"]
+
+[[strip]]
+id = "game"
+name = "Game"
+kind = "virtual"
+gain_db = -2.0
+buses = ["a1", "a2", "b2"]
+cue = false
+
+[[strip]]
+id = "chat"
+name = "Voice Chat"
+kind = "virtual"
+gain_db = -3.0
+buses = ["a2", "b2"]
+cue = true
+
+[[strip]]
+id = "system"
+name = "System"
+kind = "virtual"
+gain_db = -14.0
+mute = true
+buses = ["a1", "a2"]
+
+[[bus]]
+id = "a1"
+name = "Speakers"
+kind = "physical"
+device = "alsa_output.pci-0000_00_1f.3.analog-surround-51"
+gain_db = -12.0
+upmix = "surround"
+
+[[bus]]
+id = "a2"
+name = "Headset"
+kind = "physical"
+device = "alsa_output.usb-Headset-00.analog-stereo"
+gain_db = -6.0
+
+[[bus]]
+id = "b1"
+name = "Virtual Mic"
+kind = "virtual"
+gain_db = 0.0
+
+[[bus]]
+id = "b2"
+name = "Stream"
+kind = "virtual"
+gain_db = -2.0
+
+[bus.fx.limiter]
+enabled = true
+ceiling_db = -1.0
+
+[bus.fx.duck]
+enabled = true
+sources = ["mic", "chat"]
+amount_db = 10.0
+
+[[scene]]
+name = "Gaming"
+
+[[scene]]
+name = "Streaming"
+
+[[scene]]
+name = "Late night"
+
+[midi]
+device = "Example MIDI Controller"
+
+[[midi.binding]]
+cc = 0
+target = "music"
+action = "gain"
+
+[[midi.binding]]
+cc = 1
+target = "browser"
+action = "gain"
+
+[[midi.binding]]
+cc = 2
+target = "game"
+action = "gain"
+
+[[midi.binding]]
+cc = 48
+target = "music"
+action = "mute"
+
+[[midi.binding]]
+note = 36
+target = "mic"
+action = "mute"
+mode = "latching"
+
+[[midi.binding]]
+cc = 16
+target = "chat"
+action = "gain"
+mode = "relative"
+
+[[midi.binding]]
+cc = 64
+target = "Streaming"
+action = "scene"
+
+[[rule]]
+app = "Firefox"
+strip = "browser"
+
+[[rule]]
+app = "Music Player"
+strip = "music"
+
+[[rule]]
+app = "Voice Chat"
+strip = "chat"

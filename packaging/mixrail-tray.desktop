@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Mixrail (tray icon)
+Comment=Tray icon to open the mixer and recall scenes
+Exec=mixrail tray
+Icon=mixrail
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

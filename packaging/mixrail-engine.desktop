@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Mixrail (engine)
+Comment=Starts the mixer engine at login (for systems without systemd)
+Exec=mixrail run
+Icon=mixrail
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

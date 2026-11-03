@@ -1,0 +1,15 @@
+# Dependabot opens a pull request when a library Mixrail uses has a newer version, and
+# right away when one has a known security problem. Merging it is usually all it takes.
+version: 2
+updates:
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      rust-libraries:
+        patterns: ["*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

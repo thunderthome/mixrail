@@ -1,0 +1,55 @@
+# Push a tag like v0.1.0 to build the .deb and .rpm and publish them as a GitHub release.
+name: Release
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  deb:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang libclang-dev pkg-config libpipewire-0.3-dev libasound2-dev
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install cargo-deb
+      - run: cargo deb --locked
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deb
+          path: target/debian/*.deb
+
+  rpm:
+    runs-on: ubuntu-24.04
+    container: fedora:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dependencies
+        run: dnf install -y rpm-build cargo rust clang-devel pkgconf pipewire-devel alsa-lib-devel systemd-rpm-macros
+      - name: Build
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p ~/rpmbuild/SOURCES
+          tar --exclude=./.git --transform "s,^\.,mixrail-$version," -czf ~/rpmbuild/SOURCES/mixrail-$version.tar.gz .
+          rpmbuild -ba packaging/rpm/mixrail.spec
+          mkdir out && cp ~/rpmbuild/RPMS/*/*.rpm ~/rpmbuild/SRPMS/*.rpm out/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rpm
+          path: out/*.rpm
+
+  release:
+    needs: [deb, rpm]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: packages
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: packages/*
+          generate_release_notes: true

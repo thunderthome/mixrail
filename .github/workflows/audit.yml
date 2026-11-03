@@ -1,0 +1,20 @@
+# Checks every week (and whenever the libraries change) whether any library Mixrail uses
+# has a known security problem, using the RustSec advisory database. A failed run means
+# GitHub emails you; see packaging/README.md, "Security updates".
+name: Security audit
+on:
+  schedule:
+    - cron: "0 7 * * 1"   # Mondays 07:00 UTC
+  push:
+    paths: ["Cargo.lock", "Cargo.toml"]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install cargo-audit --locked
+      # Fails on vulnerabilities; "unmaintained" notices are only listed.
+      - run: cargo audit

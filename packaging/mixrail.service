@@ -1,0 +1,13 @@
+[Unit]
+Description=Mixrail audio mixer engine
+After=pipewire.service wireplumber.service
+Requires=pipewire.service
+PartOf=pipewire.service
+
+[Service]
+ExecStart=/usr/bin/mixrail run
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=pipewire.service

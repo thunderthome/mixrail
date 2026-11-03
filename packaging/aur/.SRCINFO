@@ -1,0 +1,20 @@
+pkgbase = mixrail
+	pkgdesc = Linux audio mixer for PipeWire: virtual inputs and outputs, per-app routing, effects and MIDI control
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://github.com/thunderthome/mixrail
+	arch = x86_64
+	arch = aarch64
+	license = GPL-3.0-or-later
+	makedepends = cargo
+	makedepends = clang
+	depends = pipewire
+	depends = pipewire-audio
+	depends = wireplumber
+	depends = alsa-lib
+	depends = gcc-libs
+	depends = glibc
+	source = mixrail-0.1.0.tar.gz::https://github.com/thunderthome/mixrail/archive/v0.1.0.tar.gz
+	sha256sums = SKIP
+
+pkgname = mixrail
