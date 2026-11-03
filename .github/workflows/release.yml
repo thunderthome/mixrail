@@ -17,7 +17,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo install cargo-deb
       - run: cargo deb --locked
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: deb
           path: target/debian/*.deb
@@ -36,7 +36,7 @@ jobs:
           tar --exclude=./.git --transform "s,^\.,mixrail-$version," -czf ~/rpmbuild/SOURCES/mixrail-$version.tar.gz .
           rpmbuild -ba packaging/rpm/mixrail.spec
           mkdir out && cp ~/rpmbuild/RPMS/*/*.rpm ~/rpmbuild/SRPMS/*.rpm out/
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: rpm
           path: out/*.rpm
@@ -61,7 +61,7 @@ jobs:
           chown -R builder /tmp/pkg
           su builder -c "makepkg -f --noconfirm"
           mkdir -p "$GITHUB_WORKSPACE/out" && cp /tmp/pkg/mixrail-$version-*.pkg.tar.zst "$GITHUB_WORKSPACE/out/"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: arch
           path: out/*.pkg.tar.zst
